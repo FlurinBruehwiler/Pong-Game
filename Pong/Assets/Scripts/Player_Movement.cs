@@ -7,14 +7,7 @@ public class Player_Movement : MonoBehaviour
     public bool isLeftPlayer;
     public float speed;
     private Rigidbody2D rb;
-
-    public GameObject Collider_Top;
-    public GameObject Collider_Bottom;
-
-    private float movement;
-
-    public float Boundary_Top;
-    public float Boundary_Bottom;
+    private float direction;
 
     // Start is called before the first frame update
     void Start()
@@ -26,29 +19,14 @@ public class Player_Movement : MonoBehaviour
     void Update()
     {
         if(isLeftPlayer){
-            movement = Input.GetAxisRaw("Vertical_Left");
+            direction = Input.GetAxisRaw("Vertical_Left");
         }
         else{
-            movement = Input.GetAxisRaw("Vertical_Right");
-        }
-
-        if (Collider_Top.transform.position.y < Boundary_Bottom)
-        {
-            if(movement == -1)
-            {
-                movement = 0;
-            }
-        }
-        else if(Collider_Bottom.transform.position.y > Boundary_Top)
-        {
-            if (movement == 1)
-            {
-                movement = 0;
-            }
+            direction = Input.GetAxisRaw("Vertical_Right");
         }
     }
 
     void FixedUpdate(){
-        rb.velocity = new Vector2(rb.velocity.x, movement * speed);
+        rb.velocity = new Vector2(0, direction * speed);
     }
 }
